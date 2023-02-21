@@ -15,12 +15,13 @@ public class Analisador extends Thread{
         this.tratador = tratador;
     }
 
-    // método para validar a sequência modificada pela thread Tratador.
+    // method to validate the sequence modified by the Tratador thread.
     public void validar() {
         this.texto = this.tratador.textoModificado();
         int quant_a = 0;
         int quant_b = 0;
 
+        // counting the number of A and B.
         for(int i = 0; i < texto.length(); i++) {
             if (texto.charAt(i) == 'a' || texto.charAt(i) == 'A') {
                 quant_a++;
@@ -31,11 +32,17 @@ public class Analisador extends Thread{
             }
         }
 
+        // Perform the necessary checks to validate the expression.
+
+        // if the character A has a higher frequency then the expression is invalid.
         if (quant_a > quant_b) {
             System.out.println("Caractere 'a'|'A' é mais frequente!");
             System.out.println("Sequência inválida!");
         }
 
+        // if the character B has a higher frequency then another verification must be done.
+        // if the amount of characters B is exactly the double the amount of characters A, then the expression is valid.
+        // Othersiwe, the expression is invalid.
         if(quant_b > quant_a) {
             System.out.println("Caractere 'b'|'B' é mais frequente!");
 
@@ -48,14 +55,15 @@ public class Analisador extends Thread{
             }
         }
 
+        // if the characters A and B have the same frequency, then the expression is valid.
         if (quant_a == quant_b){
             System.out.println("Frequência igual para ambos os caracteres!");
             System.out.println("Sequência válida!");
         }
     }
 
-    // método padrão utilizado para executar a sinalização entre os semáforos
-    // e também para executar os métodos necessários da thread.
+    // default method used to perform the signaling action between semaphores
+    // and also to execute the necessary methods of the thread.
     public void run() {
         try {
             while (true) {
